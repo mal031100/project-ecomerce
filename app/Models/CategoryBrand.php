@@ -15,7 +15,7 @@ class CategoryBrand extends Model
         'brand_id',
     ];
     
-    public function cate(){
+    public function categoey(){
         return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
