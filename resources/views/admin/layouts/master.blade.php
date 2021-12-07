@@ -10,7 +10,7 @@
   
     @include('admin.layouts.style')
     @stack('styles')
-</head>
+</head> 
 
 <body id="page-top">
   <div id="wrapper">

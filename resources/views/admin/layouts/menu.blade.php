@@ -14,7 +14,7 @@
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
       Features
-    </div>
+    </div> 
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
         aria-expanded="true" aria-controls="collapseBootstrap">
