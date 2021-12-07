@@ -16,3 +16,5 @@ mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'pub
     require('tailwindcss'),
     require('autoprefixer'),
 ]);
+mix.copyDirectory('resources/admin', 'public/admin');
+mix.copyDirectory('resources/assets', 'public/assets');
