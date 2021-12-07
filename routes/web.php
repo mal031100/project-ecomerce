@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
-
+use App\Http\Controllers\Client\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +21,8 @@ Route::get('/', function () {
 
 Route::prefix('amin')->group(function(){
     Route::get('/', [HomeController::class, 'index'])->name('admin.index');
+});
+
+Route::prefix('client')->group(function(){
+    Route::get('/', [ClientController::class, 'index'])->name('client.index');
 });
