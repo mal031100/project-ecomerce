@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Client\ClientController;
+// use App\Http\Controllers\Admin\HomeController;
+// use App\Http\Controllers\Client\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,10 +19,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('amin')->group(function(){
-    Route::get('/', [HomeController::class, 'index'])->name('admin.index');
+// Route::prefix('amin')->group(function(){
+//     Route::get('/', [HomeController::class, 'index'])->name('admin.index');
+// });
+
+// Route::prefix('client')->group(function(){
+//     Route::get('/', [ClientController::class, 'index'])->name('client.index');
+// });
+
+Route::group(['prefix'=>'amin', 'as'=>'admin.'], function(){
+    Route::get('/', ['as'=>'index', 'uses' => 'App\Http\Controllers\Admin\HomeController@index']);
 });
 
-Route::prefix('client')->group(function(){
-    Route::get('/', [ClientController::class, 'index'])->name('client.index');
+Route::group(['prefix'=>'client', 'as'=>'client.'], function(){
+    Route::get('/', ['as'=>'index', 'uses' => 'App\Http\Controllers\Client\ClientController@index']);
 });
