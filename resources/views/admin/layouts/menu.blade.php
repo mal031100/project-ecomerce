@@ -1,5 +1,5 @@
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('amin')}}">
       <div class="sidebar-brand-icon">
         <img src="{{ asset('admin/img/logo/logo2.png')}}">
       </div>
@@ -7,7 +7,7 @@
     </a>
     <hr class="sidebar-divider my-0">
     <li class="nav-item active">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link" href="{{url('amin')}}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
     </li>
@@ -19,17 +19,13 @@
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
         aria-expanded="true" aria-controls="collapseBootstrap">
         <i class="far fa-fw fa-window-maximize"></i>
-        <span>Bootstrap UI</span>
+        <span>Product</span>
       </a>
       <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Bootstrap UI</h6>
-          <a class="collapse-item" href="alerts.html">Alerts</a>
-          <a class="collapse-item" href="buttons.html">Buttons</a>
-          <a class="collapse-item" href="dropdowns.html">Dropdowns</a>
-          <a class="collapse-item" href="modals.html">Modals</a>
-          <a class="collapse-item" href="popovers.html">Popovers</a>
-          <a class="collapse-item" href="progress-bar.html">Progress Bars</a>
+          <h6 class="collapse-header"></h6>
+          <a class="collapse-item" href="{{url('amin/product')}}">List</a>
+          <a class="collapse-item" href="{{url('amin/product/add-product')}}">Add</a>
         </div>
       </div>
     </li>
@@ -37,13 +33,12 @@
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
         aria-controls="collapseForm">
         <i class="fab fa-fw fa-wpforms"></i>
-        <span>Forms</span>
+        <span>Category</span>
       </a>
       <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Forms</h6>
-          <a class="collapse-item" href="form_basics.html">Form Basics</a>
-          <a class="collapse-item" href="form_advanceds.html">Form Advanceds</a>
+          <h6 class="collapse-header"></h6>
+          <a class="collapse-item" href="form_basics.html">List Category</a>
         </div>
       </div>
     </li>
