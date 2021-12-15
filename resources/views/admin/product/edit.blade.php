@@ -1,14 +1,6 @@
 @extends('admin.master')
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+
     <div class="card">
         <div class="card-header">
             <h4>Edit Product</h4>
@@ -25,31 +17,49 @@
                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                 @endforeach
                           </select>
+                          @error('category_id')
+                              <small class="help-block">{{ $message }}</small>
+                          @enderror
                     </div>
                     <div class="col-md-12 mb-3">
                         <select class="form-select" name="user_id" >
                             <option value="">{{$product->user->name}}</option>
                           </select>
+                        @error('user_id')
+                            <small class="help-block">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="">Name</label>
                         <input type="text" class="form-control" value="{{$product->name}}" name="name" id="">
+                        @error('name')
+                            <small class="help-block">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="">Price</label>
                         <input type="number" class="form-control" value="{{$product->price}}" name="price">
+                        @error('price')
+                            <small class="help-block">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="">Sale</label>
                         <input type="number" class="form-control" value="{{$product->sale}}" name="sale">
+                        @error('sale')
+                            <small class="help-block">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="">Amount</label>
                         <input type="number" class="form-control" value="{{$product->amount}}" name="amount">
+                        @error('amount')
+                            <small class="help-block">{{ $message }}</small>
+                        @enderror
                     </div>
                     @if ($product->image)
-                    <img src="{{asset('resources/assets1/upload/product/'.$product->image)}}" alt="">
+                    <img src="{{asset('assets1/upload/product/'.$product->image)}}" width="200px" height="200px" alt="">
                     @endif
                     <div class="col-md-3 mb-3">
                         <label for="">Image</label>

@@ -8,6 +8,8 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\support\Facades\File;
+use App\Http\Requests\product\InsertRequest;
+use App\Http\Requests\Product\UpdateRequest;
 
 class ProductController extends Controller
 {
@@ -21,24 +23,8 @@ class ProductController extends Controller
         $category = Category::all();
         return view('admin.product.add', compact('category', 'user'));
     }
-    public function insert(Request $request){
+    public function insert(InsertRequest $request){
         $product = new Product();
-        $request->validate([
-            'category_id' => 'required',
-            'user_id' => 'required',
-            'name' => 'required|max:30|unique:products,name',
-            'price' => 'required',
-            'sale' => 'required',
-            'amount' => 'required',
-        ],[
-            // 'name.unique' => 'Tên đã tồn tại',
-            // 'name.max' => 'Tên quá dài',
-            // 'name.required' => 'Không được để trống tên',
-            // 'price.required' => 'Không được để trống giá',
-            // 'sale.required' => 'Không được để trống giá',
-            // 'amount.required' => 'Không được để trống giá'
-        ]);
-        
         $product->category_id =$request->input('category_id');
         $product->user_id = $request->input('user_id');
         $product->name =$request->input('name');
@@ -62,14 +48,8 @@ class ProductController extends Controller
         return view('admin.product.edit', compact('product', 'category'));
     }
 
-    public function update(Request $request, $id){
+    public function update(UpdateRequest $request, $id){
         $product = Product::find($id);
-        $request->validate([
-            'name' => 'required|min:5|max:30|unique:products,name',
-            'price' => 'required',
-            'sale' => 'required',
-            'amount' => 'required',
-        ]);
         // $product->category_id =$request->input('category_id');
         // $product->user_id = $request->input('user_id');
         $product->name =$request->input('name');
@@ -77,14 +57,14 @@ class ProductController extends Controller
         $product->sale =$request->input('sale');
         $product->amount =$request->input('amount');
         if($request->hasFile('image')){
-            $path = 'resources/assets1/upload/product/'.$product->image;
+            $path = 'assets1/upload/product/'.$product->image;
             if(File::exists($path)){
                 File::delete($path);
             }
             $file = $request->file('image');
             $ext = $file->getClientOriginalExtension();
             $filename = time().'.'.$ext;
-            $file->move('resources/assets1/upload/product/',$filename);
+            $file->move('assets1/upload/product/',$filename);
             $product->image = $filename;
         }
         $product->update();
@@ -93,10 +73,10 @@ class ProductController extends Controller
 
     public function delete($id){
         $product = Product::find($id);
-        $path = 'resources/assets1/upload/product/'.$product->image;
+        $path = 'assets1/upload/product/'.$product->image;
             if(File::exists($path))
             {
-                File::unlink($path);
+                File::delete($path);
             }
         $product->delete();
         return redirect()->route('admin.product.list')->with('success','Delete this product successfully');
