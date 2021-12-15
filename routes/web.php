@@ -30,12 +30,12 @@ Route::get('/', function () {
 Route::group(['prefix'=>'amin', 'as'=>'admin.'], function(){
     Route::get('/', ['as'=>'index', 'uses' => 'Admin\HomeController@index']);
     Route::group(['prefix'=>'product', 'as'=>'product.'], function(){
-        Route::get('',['name'=>'list', 'uses'=>'Admin\ProductController@list']);
-        Route::get('add-product',['name'=>'add', 'uses'=>'Admin\ProductController@add']);
-        Route::post('insert-product', ['name'=>'insert', 'uses'=>'Admin\ProductController@insert']);
-        Route::get('edit-product/{id}',['name'=>'edit', 'uses'=>'Admin\ProductController@edit']);
-        Route::put('update-product/{id}',['name'=>'update', 'uses'=>'Admin\ProductController@update']);
-        Route::get('delete-product/{id}', ['name'=>'delete', 'uses'=>'Admin\ProductController@delete']);
+        Route::get('',['name'=>'list', 'uses'=>'Admin\ProductController@list'])->name('list');
+        Route::get('add-product',['name'=>'add', 'uses'=>'Admin\ProductController@add'])->name('add');
+        Route::post('insert-product', ['name'=>'insert', 'uses'=>'Admin\ProductController@insert'])->name('insert');
+        Route::get('edit-product/{id}',['name'=>'edit', 'uses'=>'Admin\ProductController@edit'])->name('edit');
+        Route::put('update-product/{id}',['name'=>'update', 'uses'=>'Admin\ProductController@update'])->name('update');
+        Route::get('delete-product/{id}', ['name'=>'delete', 'uses'=>'Admin\ProductController@delete'])->name('delete');
     });
 });
 

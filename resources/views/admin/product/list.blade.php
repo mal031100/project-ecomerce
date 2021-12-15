@@ -1,5 +1,10 @@
 @extends('admin.master')
 @section('content')
+@if (session('success'))
+  <div class="alert alert-success">
+    {{session('success')}}
+  </div>
+@endif
 
 <div class="container-fluid" id="container-wrapper">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -52,7 +57,7 @@
                       <td>{{$item->price}}</td>
                       <td>{{$item->sale}}</td>
                       <td>{{$item->amount}}</td>
-                      <td><img src="{{asset('assets1/upload/product/'.$item->image)}}" class="prod-image" alt="Image hero"></td>
+                      <td><img src="{{asset('resources/assets1/upload/product/'.$item->image)}}" alt="Image hero" height="70px" width="70px"></td>
                       <td>
                         <a href="{{url('amin/product/edit-product/'.$item->id)}}" class="btn btn-primary btn-sm">Edit</a>
                         <a href="{{url('amin/product/delete-product/'.$item->id)}}" class="btn btn-danger btn-sm">Delete</a>

@@ -1,5 +1,14 @@
 @extends('admin.master')
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="card">
         <div class="card-header">
             <h4>Edit Product</h4>
@@ -12,6 +21,9 @@
                     <div class="col-md-12 mb-3">
                         <select class="form-select" name="category_id" >
                             <option value="">{{$product->category->name}}</option>
+                                @foreach ($category as $item)
+                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                @endforeach
                           </select>
                     </div>
                     <div class="col-md-12 mb-3">
@@ -37,7 +49,7 @@
                         <input type="number" class="form-control" value="{{$product->amount}}" name="amount">
                     </div>
                     @if ($product->image)
-                    <img src="{{asset('assets1/upload/product/'.$product->image)}}" alt="">
+                    <img src="{{asset('resources/assets1/upload/product/'.$product->image)}}" alt="">
                     @endif
                     <div class="col-md-3 mb-3">
                         <label for="">Image</label>
