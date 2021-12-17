@@ -44,9 +44,4 @@ class AuthController extends Controller
     public function logout(){
 
     }
-
-    public function list(){
-        $user = User::orderBy('id', 'asc')->paginate(5);
-        return view('auth.list', compact('user'));  
-    }
 }

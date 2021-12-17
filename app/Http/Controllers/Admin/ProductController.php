@@ -19,9 +19,8 @@ class ProductController extends Controller
         return view('admin.product.list', compact('product', 'search'));    
     }
     public function add(){
-        $user = User::orderBy('name','asc')->select('id', 'name')->get();
         $category = Category::all();
-        return view('admin.product.add', compact('category', 'user'));
+        return view('admin.product.add', compact('category'));
     }
     public function insert(InsertRequest $request){
         $product = new Product();

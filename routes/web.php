@@ -24,8 +24,10 @@ Route::group(['prefix'=>'', 'as'=>'account.'], function(){
     Route::get('register', ['name'=>'formregister', 'uses'=>'Auth\AuthController@formregister'])->name('formregister');
     Route::post('register', ['name'=>'register', 'uses'=>'Auth\AuthController@register'])->name('register');
     Route::get('logout', ['name'=>'logout', 'uses'=>'Auth\AuthController@logout'])->name('logout');
+});
 
-    Route::get('list', ['name'=>'list', 'uses'=>'Auth\AuthController@list'])->name('list');
+Route::group(['prefix'=>'user', 'as'=>'user.'], function(){
+    Route::get('list', ['name'=>'list', 'uses'=>'User\UserController@list'])->name('list');
 });
 
 Route::group(['prefix'=>'amin', 'as'=>'admin.'], function(){
