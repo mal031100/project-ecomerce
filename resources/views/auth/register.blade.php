@@ -33,29 +33,50 @@
                     @csrf
                     <div class="form-group">
                       <input type="text" class="form-control" name="name" id="exampleInputFirstName" placeholder="Enter First Name">
+                      @error('name')
+                          <small class="help-block">{{ $message }}</small>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <input type="email" class="form-control" name="email" id="exampleInputEmail" aria-describedby="emailHelp"
                         placeholder="Enter Email Address">
+                        @error('email')
+                            <small class="help-block">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <input type="text" name="phone" id="exampleInputPhone" class="form-control" placeholder="Enter Number Phone">
+                        @error('phone')
+                            <small class="help-block">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <input type="text" name="address" class="form-control" id="exampleInputAddress" placeholder="Enter Address">
+                        @error('address')
+                            <small class="help-block">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <select class="form-select" name="role" >
                           <option selected><h4>Select a role</h4></option>
                           <option value="1">Member</option>
                         </select>
+                        @error('role')
+                            <small class="help-block">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control" name="password" id="exampleInputPassword" placeholder="Password">
+                      @error('password')
+                          <small class="help-block">{{ $message }}</small>
+                      @enderror
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control" name="repassword" id="exampleInputPasswordRepeat"
                         placeholder="Repeat Password">
+                        @error('repassword')
+                            <small class="help-block">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                       <button type="submit" class="btn btn-primary btn-block">Register</button>

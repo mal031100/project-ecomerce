@@ -22,7 +22,7 @@ class AuthController extends Controller
         if (Auth::attempt($login)) {
             return redirect()->route('admin.index');
         }
-        return redirect()->route('account.formlogin');
+        return redirect()->route('account.formlogin')->with('error', 'Incorrect email or password');
     }
 
     public function formregister(){
