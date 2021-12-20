@@ -5,7 +5,7 @@
             <h4>Edit User</h4>
         </div>
         <div class="card-body">
-            <form action="{{ url('amin/product/update-product/'.$user->id)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('amin/user/update-user/'.$user->id)}}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="row">

@@ -26,23 +26,24 @@ Route::get('/', function () {
     Route::get('logout', ['name'=>'logout', 'uses'=>'Auth\AuthController@logout'])->name('logout');
 
 
-Route::group(['prefix'=>'user', 'as'=>'user.'], function(){
-    Route::get('', ['name'=>'list', 'uses'=>'User\UserController@list'])->name('list');
-    Route::get('edit-user/{id}',['name'=>'edit', 'uses'=>'User\UserController@edit'])->name('edit');
-    Route::put('update-user/{id}',['name'=>'update', 'uses'=>'User\UserController@update'])->name('update');
-    Route::get('delete-user/{id}', ['name'=>'delete', 'uses'=>'User\UserController@delete'])->name('delete');
-});
+
 
 Route::group(['prefix'=>'amin', 'middleware'=>'auth','as'=>'admin.'], function(){
     Route::group(['middleware'=>'checklogin'], function(){
         Route::get('/', ['name'=>'index', 'uses' => 'Admin\HomeController@index'])->name('index');
         Route::group(['prefix'=>'product', 'as'=>'product.'], function(){
-        Route::get('',['name'=>'list', 'uses'=>'Admin\ProductController@list'])->name('list');
-        Route::get('add-product',['name'=>'add', 'uses'=>'Admin\ProductController@add'])->name('add');
-        Route::post('insert-product', ['name'=>'insert', 'uses'=>'Admin\ProductController@insert'])->name('insert');
-        Route::get('edit-product/{id}',['name'=>'edit', 'uses'=>'Admin\ProductController@edit'])->name('edit');
-        Route::put('update-product/{id}',['name'=>'update', 'uses'=>'Admin\ProductController@update'])->name('update');
-        Route::get('delete-product/{id}', ['name'=>'delete', 'uses'=>'Admin\ProductController@delete'])->name('delete');
+            Route::get('',['name'=>'list', 'uses'=>'Admin\ProductController@list'])->name('list');
+            Route::get('add-product',['name'=>'add', 'uses'=>'Admin\ProductController@add'])->name('add');
+            Route::post('insert-product', ['name'=>'insert', 'uses'=>'Admin\ProductController@insert'])->name('insert');
+            Route::get('edit-product/{id}',['name'=>'edit', 'uses'=>'Admin\ProductController@edit'])->name('edit');
+            Route::put('update-product/{id}',['name'=>'update', 'uses'=>'Admin\ProductController@update'])->name('update');
+            Route::get('delete-product/{id}', ['name'=>'delete', 'uses'=>'Admin\ProductController@delete'])->name('delete');
+        });
+        Route::group(['prefix'=>'user', 'as'=>'user.'], function(){
+            Route::get('', ['name'=>'list', 'uses'=>'User\UserController@list'])->name('list');
+            Route::get('edit-user/{id}',['name'=>'edit', 'uses'=>'User\UserController@edit'])->name('edit');
+            Route::put('update-user/{id}',['name'=>'update', 'uses'=>'User\UserController@update'])->name('update');
+            Route::get('delete-user/{id}', ['name'=>'delete', 'uses'=>'User\UserController@delete'])->name('delete');
         });
     });
 });

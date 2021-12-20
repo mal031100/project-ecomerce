@@ -57,8 +57,8 @@
                       <td>{{$item->address}}</td>
                       <td>{{$item->role}}</td>
                       <td>
-                        <a href="{{url('user/edit-user/'.$item->id)}}" class="btn btn-primary btn-sm">Edit</a>
-                        <a href="{{url('user/delete-user/'.$item->id)}}" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="{{url('amin/user/edit-user/'.$item->id)}}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="{{url('amin/user/delete-user/'.$item->id)}}" class="btn btn-danger btn-sm">Delete</a>
                       </td>
                     </tr>
                     @endforeach

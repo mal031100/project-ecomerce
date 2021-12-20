@@ -27,12 +27,12 @@ class UserController extends Controller
         $user->address = $request->input('address');
         $user->role = $request->input('role');
         $user->update();
-        return redirect()->route('user.list')->with('success','User update successfully');
+        return redirect()->route('admin.user.list')->with('success','User update successfully');
     }
 
     public function delete($id){
         $user = User::find($id);
         $user->delete();
-        return redirect()->route('user.list')->with('success','Delete this user successfully');
+        return redirect()->route('admin.user.list')->with('success','Delete this user successfully');
     }
 }
