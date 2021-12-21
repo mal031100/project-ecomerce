@@ -50,7 +50,8 @@ Route::group(['prefix'=>'amin','as'=>'admin.'], function(){
     });
 });
 
-
-    Route::group(['prefix'=>'client', 'as'=>'client.'], function(){
-        Route::get('/', ['as'=>'index', 'uses' => 'Client\ClientController@index']);
-    });
+Route::group(['prefix'=>'client', 'as'=>'client.'], function(){
+    Route::get('/', ['as'=>'index', 'uses' => 'Client\ClientController@index']);
+    Route::get('cart', ['as'=>'cart', 'uses'=>'Client\CartController@cart']);
+    Route::get('detail', ['as'=>'detail', 'uses'=>'Client\DetailController@index']);
+});
