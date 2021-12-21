@@ -18,8 +18,9 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request){
         $login = $request->only('email', 'password');
+        $remember = $request->input('remember_me');
 
-        if (Auth::attempt($login)) {
+        if (Auth::attempt($login, $remember)) {
             return redirect()->route('admin.index');
         }
         return redirect()->route('account.formlogin')->with('error', 'Incorrect email or password');
