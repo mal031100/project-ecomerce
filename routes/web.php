@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 // use App\Http\Controllers\Admin\HomeController;
 // use App\Http\Controllers\Client\ClientController;
 
@@ -24,6 +25,7 @@ Route::get('/', function () {
     Route::get('register', ['name'=>'formregister', 'uses'=>'Auth\AuthController@formregister'])->name('formregister');
     Route::post('register', ['name'=>'register', 'uses'=>'Auth\AuthController@register'])->name('register');
     Route::get('logout', ['name'=>'logout', 'uses'=>'Auth\AuthController@logout'])->name('logout');
+    
 
 
 

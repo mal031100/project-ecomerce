@@ -18,12 +18,11 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request){
         $login = $request->only('email', 'password');
-        $remember = $request->input('remember_me');
 
-        if (Auth::attempt($login, $remember)) {
+        if (Auth::attempt($login)) {
             return redirect()->route('admin.index');
         }
-        return redirect()->route('account.formlogin')->with('error', 'Incorrect email or password');
+        return redirect()->route('formlogin')->with('error', 'Incorrect email or password');
     }
 
     public function formregister(){
@@ -39,11 +38,11 @@ class AuthController extends Controller
         $user->role = $request->input('role');
         $user->password = bcrypt($request->password);
         $user->save();
-        return redirect()->route('account.formlogin')->with('success', 'Add user successfully');
+        return redirect()->route('formlogin')->with('success', 'Add user successfully');
     }
 
     public function logout(){
         Auth::logout();
-        return redirect()->route('account.formlogin');
+        return redirect()->route('formlogin');
     }
 }
