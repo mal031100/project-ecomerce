@@ -30,7 +30,7 @@ Route::get('/', function () {
 
 
 
-Route::group(['prefix'=>'amin', 'middleware'=>'auth','as'=>'admin.'], function(){
+Route::group(['prefix'=>'amin','as'=>'admin.'], function(){
     Route::group(['middleware'=>'checklogin'], function(){
         Route::get('/', ['name'=>'index', 'uses' => 'Admin\HomeController@index'])->name('index');
         Route::group(['prefix'=>'product', 'as'=>'product.'], function(){
@@ -50,6 +50,7 @@ Route::group(['prefix'=>'amin', 'middleware'=>'auth','as'=>'admin.'], function()
     });
 });
 
-Route::group(['prefix'=>'client', 'as'=>'client.'], function(){
-    Route::get('/', ['as'=>'index', 'uses' => 'Client\ClientController@index']);
-});
+
+    Route::group(['prefix'=>'client', 'as'=>'client.'], function(){
+        Route::get('/', ['as'=>'index', 'uses' => 'Client\ClientController@index']);
+    });
