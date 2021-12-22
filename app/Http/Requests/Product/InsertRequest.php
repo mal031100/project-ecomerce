@@ -25,8 +25,7 @@ class InsertRequest extends FormRequest
     {
         return [
             'category_id' => 'required',
-            'user_id' => 'required',
-            'name' => 'required|max:30|unique:products,name',
+            'name' => 'required|max:100|unique:products,name',
             'price' => 'required',
             'sale' => 'required',
             'amount' => 'required',
