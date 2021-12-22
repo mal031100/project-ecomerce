@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-md-12 mb-3">
                         <select class="form-select" name="user_id" >
-                            <option value="">{{$product->user->name}}</option>
+                            <option value="{{Auth::User()->id}}">{{Auth::User()->name}}</option>
                           </select>
                         @error('user_id')
                             <small class="help-block">{{ $message }}</small>

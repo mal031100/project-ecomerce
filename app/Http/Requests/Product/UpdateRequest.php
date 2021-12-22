@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:30',
+            'name' => 'required|max:100',
             'price' => 'required',
             'sale' => 'required',
             'amount' => 'required',

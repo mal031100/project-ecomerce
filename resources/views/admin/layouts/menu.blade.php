@@ -70,13 +70,12 @@
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true"
         aria-controls="collapsePage">
         <i class="fas fa-fw fa-columns"></i>
-        <span>Pages</span>
+        <span>Account</span>
       </a>
       <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-          <h6 class="collapse-header">Example Pages</h6>
-          <a class="collapse-item" href="login.html">Login</a>
-          <a class="collapse-item" href="register.html">Register</a>
+          <h6 class="collapse-header"></h6>
+          <a class="collapse-item" href="{{route('admin.user.list')}}">list</a>
           <a class="collapse-item" href="404.html">404 Page</a>
           <a class="collapse-item" href="blank.html">Blank Page</a>
         </div>

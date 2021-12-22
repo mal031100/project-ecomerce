@@ -20,15 +20,12 @@
                         @enderror
                     </div>
                     <div class="col-md-12 mb-3">
-                        <select class="form-select" name="user_id" >
-                            <option value="">Select a user</option>
-                                @foreach ($user as $item)
-                                <option value="{{$item->id}}">{{$item->name}}</option>
-                                @endforeach
-                          </select>
-                            @error('user_id')
-                                <small class="help-block">{{ $message }}</small>
-                            @enderror
+                        <select name="user_id">
+                            <option value="{{Auth::User()->id}}">{{Auth::User()->name}}</option>
+                        </select>
+                        @error('user_id')
+                            <small class="help-block">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <div class="col-md-6 mb-3">
