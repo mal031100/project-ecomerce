@@ -52,6 +52,7 @@ Route::group(['prefix'=>'amin','as'=>'admin.'], function(){
 
 Route::group(['prefix'=>'client', 'as'=>'client.'], function(){
     Route::get('/', ['as'=>'index', 'uses' => 'Client\ClientController@index']);
+    Route::get('detail/{id}', ['as'=>'detail', 'uses'=>'Client\DetailController@index']);
+    Route::post('add-cart', ['as'=>'addCart', 'uses'=>'Client\CartController@save_cart']);
     Route::get('cart', ['as'=>'cart', 'uses'=>'Client\CartController@cart']);
-    Route::get('detail', ['as'=>'detail', 'uses'=>'Client\DetailController@index']);
 });
