@@ -9,12 +9,12 @@
 			<div class="row">
 				<div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
 					<div class="wrap-product-detail">
-						<form action="{{url('client.addCart')}}" method="POST" enctype="multipart/form-data">
+						<form action="{{url('client/cart')}}" method="POST" enctype="multipart/form-data">
 						{{-- @method('GET') --}}
 						@csrf
 						{{-- @foreach ($description as $key) --}}
 						<div class="detail-media">
-								<img src="{{ asset('assets1/upload/product/'.$item->image)}}" alt="product thumbnail" />
+								<img src="{{ asset('assets1/upload/product/'.$product->image)}}" alt="product thumbnail" />
 						</div>
 						
 						<div class="detail-info">
@@ -26,7 +26,7 @@
 								<i class="fa fa-star" aria-hidden="true"></i>
 								<a href="#" class="count-review">(05 review)</a>
 							</div>
-							<h2 class="product-name" >{{$item->name}}</h2>
+							<h2 class="product-name" >{{$product->name}}</h2>
 						
 							<div class="short-desc">
 								<ul>
@@ -38,20 +38,25 @@
 							<div class="wrap-social">
 								<a class="link-socail" href="#"><img src="{{ asset('assets/images/social-list.png')}}" alt=""></a>
 							</div>
-							<div class="wrap-price"><span class="product-price">{{number_format($item->price,0,',','.')}} VNĐ</span></div>
+							<div class="wrap-price"><span class="product-price">{{number_format($product->price,0,',','.')}} VNĐ</span></div>
 							<div class="stock-info in-stock">
 								<p class="availability">Availability: <b>In Stock</b></p>
 							</div>
 							<div class="quantity">
 								<span>Quantity:</span>
 								<div class="quantity-input">
-									<input type="text" name="product-quatity" value="1" data-max="{{$item->amount}}" pattern="[0-9]*" >
+									<input type="text" name="product-quatity" value="1" data-max="{{$product->amount}}" pattern="[0-9]*" >
 										<a class="btn btn-reduce" href="#"></a>
 										<a class="btn btn-increase" href="#"></a>
 								</div>
 							</div>
 							<div class="wrap-butons">
-								<a href="{{route('client.cart')}}" class="btn add-to-cart">Add to Cart</a>
+								<form action="{{route('client.addCart')}}">
+									@csrf
+									@method('get')
+									<input type="hidden" name="product_id" value="{{$product->id}}">
+									<button type="submit" class="btn add-to-cart">Add to Cart</button>
+								</form>
 								<div class="wrap-btn">
 									<a href="#" class="btn btn-compare">Add Compare</a>
 									<a href="#" class="btn btn-wishlist">Add Wishlist</a>

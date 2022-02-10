@@ -10,36 +10,19 @@ use Session;
 
 class CartController extends Controller
 {
-    public function save_cart(Request $request, $id)
-    {   
-        $total = 0;
-        // $id = $request->input('id');
-        // $quantity = $request->input('amount');
-        // $getpro = Product::find($id);
-        // $name = $getpro->name;
-        // $image = $getpro->image;
-        // $price = $getpro->sale;
-        $product = Product::find($id);
-        $name = $product->name;
-        $image = $product->image;
-        $quantity = $product->amount;
-        $price = $product->sale;
-
-        $data = [
-            'id' => $id,
-            'qty' => $quantity,
-            'name' => $name,
-            'price' => $price,
-            'options' => [
-                'image' => $image,
-            ],
-            'total' => [$total + ($price * $quantity)],
-        ];
-        Cart::add($data);
-
-        return redirect()->back();
+    public function save_cart(Request $request)
+    {  
+        $product = Product::findOrFail($request->input('id'));
+        Cart::add(
+            $product->id, 
+            $product->name, 
+            $product->input('amount'), 
+            $product->price,
+        );
+        return redirect()->route('Client.cart')->with('message', 'Successfully added');
     }
     public function cart(){
+        // $cart = Cart::content();
         return view('client.cart.cart');
     }
 }
