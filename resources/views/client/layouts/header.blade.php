@@ -23,8 +23,13 @@
 						</div>
 						<div class="topbar-menu right-menu">
 							<ul>
+								@if (Auth::check())
+								<li class="menu-item" ><a title="Register or Login" href="">{{Auth::User()->name}}</a></li>
+								<li class="menu-item" ><a title="Register or Login" href="{{route('logout')}}">Logout</a></li>
+								@else
 								<li class="menu-item" ><a title="Register or Login" href="{{route('formlogin')}}">Login</a></li>
 								<li class="menu-item" ><a title="Register or Login" href="{{route('formregister')}}">Register</a></li>
+								@endif
 								<li class="menu-item lang-menu menu-item-has-children parent">
 									<a title="English" href="#"><span class="img label-before"><img src="{{asset('assets/images/lang-en.png')}}" alt="lang-en"></span>English<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 									<ul class="submenu lang" >
