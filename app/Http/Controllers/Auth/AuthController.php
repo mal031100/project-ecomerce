@@ -7,8 +7,10 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+
 
 class AuthController extends Controller
 {
@@ -20,6 +22,8 @@ class AuthController extends Controller
         $login = $request->only('email', 'password');
 
         if (Auth::attempt($login)) {
+            $user = auth()->user();
+            Auth::login($user, true);
             return redirect()->route('admin.index');
         }
         return redirect()->route('formlogin')->with('error', 'Incorrect email or password');
@@ -38,6 +42,9 @@ class AuthController extends Controller
         $user->role = $request->input('role');
         $user->password = bcrypt($request->password);
         $user->save();
+        event(new Registered($user));
+
+        auth()->login($user);
         return redirect()->route('formlogin')->with('success', 'Add user successfully');
     }
 
