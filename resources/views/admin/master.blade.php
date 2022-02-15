@@ -42,6 +42,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
   @include('admin.layouts.script')
+  @include('admin.product.summernote')
   @stack('scripts')
   
 </body>

@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\support\Facades\File;
 use App\Http\Requests\product\InsertRequest;
 use App\Http\Requests\Product\UpdateRequest;
+use App\Models\ProductSpecification;
 
 class ProductController extends Controller
 {
@@ -24,12 +25,14 @@ class ProductController extends Controller
     }
     public function insert(InsertRequest $request){
         $product = new Product();
+        $specification = ProductSpecification::all();
         $product->category_id =$request->input('category_id');
         $product->user_id = $request->input('user_id');
         $product->name =$request->input('name');
         $product->price =$request->input('price');  
         $product->sale =$request->input('sale');
         $product->amount =$request->input('amount');
+        $specification->parameter = $request->input('summernote');
         if($request->hasFile('image')){
             $file = $request->file('image');
             $ext = $file->getClientOriginalExtension();

@@ -11,10 +11,10 @@ aria-hidden="true">
     <div class="modal-body">
       <p>Are you sure you want to logout?</p>
     </div>
-    <div class="modal-footer">
+    {{-- <div class="modal-footer">
       <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
       <a href="{{route('logout')}}" class="btn btn-primary">Logout</a>
-    </div>
+    </div> --}}
   </div>
 </div>
 </div>
