@@ -21,7 +21,8 @@ class CheckLoginMiddleware
             if(Auth::user()->role != '1'){
                 return $next($request);
             }
-            return redirect()->route('client.index');
+                return redirect()->route('client.index');
+            
         }
         return redirect()->route('formlogin');
     }

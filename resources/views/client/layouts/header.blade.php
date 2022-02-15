@@ -152,7 +152,7 @@
 									<a href="about-us.html" class="link-term mercado-item-title">About Us</a>
 								</li>
 								<li class="menu-item">
-									<a href="shop.html" class="link-term mercado-item-title">Shop</a>
+									<a href="{{route('client.shop')}}" class="link-term mercado-item-title">Shop</a>
 								</li>
 								<li class="menu-item">
 									<a href="{{route('client.cart')}}" class="link-term mercado-item-title">Cart</a>
