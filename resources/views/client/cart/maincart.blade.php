@@ -13,32 +13,52 @@
         </div>
         <div class=" main-content-area">
             
-            @foreach (Cart::content() as $product)
+        
             <div class="wrap-iten-in-cart">
                 <h3 class="box-title">Products Name</h3>
                 <ul class="products-cart">
                     <li class="pr-cart-item">
-                        <div class="product-image">
-                            <figure><img src="{{ asset('assets1/upload/product/'.$product->options->image)}}" alt=""></figure>
-                        </div>
-                        <div class="product-name">
-                            <a class="link-to-product" href="#">{{$product->name}}</a>
-                        </div>
-                        <div class="price-field produtc-price"><p class="price">{{number_format($product->price,0,',','.')}} VNĐ</p></div>
-                        <div class="quantity">
-                            <div class="quantity-input">
-                                <input type="text" name="product-quatity" value="1" data-max="{{$product->qty}}" pattern="[0-9]*" >									
-                                <a class="btn btn-increase" href="#"></a>
-                                <a class="btn btn-reduce" href="#"></a>
-                            </div>
-                        </div>
-                        <div class="price-field sub-total"><p class="price">{{$product->price}}</p></div>
-                        <div class="delete">
-                            <a href="#" class="btn btn-delete" title="">
-                                <span>Delete from your cart</span>
-                                <i class="fa fa-times-circle" aria-hidden="true"></i>
-                            </a>
-                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td class="image">Image</td>
+                                    <td class="name">Name</td>
+                                    <td class="qty">Quatity</td>
+                                    <td class="price">Price</td>
+                                    <td class="total">Total</td>
+                                    <td class=""></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                    $total = 0;
+                                @endphp
+                                @foreach (Session::get('cart') as $key => $cart)
+                                    @php
+                                        $subtotal = $cart['price']*$cart['amount'];
+                                        $total += $subtotal;
+                                    @endphp
+                                    <tr>
+                                        <td class="cart_image"><img src="{{ asset('assets1/upload/product/'.$cart['image'])}}" alt=""></td>
+                                        <td class="cart_name">{{$cart['name']}}</td>
+                                        <td class="cart_price">{{number_format($cart['price'],0,',','.')}}VND</td>
+                                        <td>
+                                            <div>
+                                                <form action="" method="post">
+                                                    <input type="number" name="cart_quantity" class="cart_quatity_" min="1" id="" value="{{$cart['amount']}}">
+                                                    <input type="submit" value="update" name="update_qty" class="btn btn-default btn-sm">
+                                                </form>
+                                            </div>
+                                        </td>
+                                        <td class="cart_total">{{number_format($subtotal,0,',','.')}}VND</td>
+                                        <td class="cart_delete"><a href="" class="cart_quantity_delete"><i class="fa fa-times"></i></a></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        @php
+                            print_r(Session::get('cart'));
+                        @endphp
                     </li>
                 </ul>
             </div>
@@ -46,9 +66,9 @@
             <div class="summary">
                 <div class="order-summary">
                     <h4 class="title-box">Order Summary</h4>
-                    <p class="summary-info"><span class="title">Subtotal</span><b class="index">{{$product->total}}</b></p>
+                    <p class="summary-info"><span class="title">Subtotal</span><b class="index"></b></p>
                     <p class="summary-info"><span class="title">Shipping</span><b class="index">Free Shipping</b></p>
-                    <p class="summary-info total-info "><span class="title">Total</span><b class="index">{{$product->total}}</b></p>
+                    <p class="summary-info total-info "><span class="title">Total</span><b class="index"></b></p>
                 </div>
                 <div class="checkout-info">
                     <label class="checkbox-field">
@@ -62,7 +82,6 @@
                     <a class="btn btn-update" href="#">Update Shopping Cart</a>
                 </div>
             </div>
-            @endforeach
 
             <div class="wrap-show-advance-info-box style-1 box-in-site">
                 <h3 class="title-box">Most Viewed Products</h3>

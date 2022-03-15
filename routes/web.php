@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['prefix'=>'client', 'middleware'=>'auth', 'as'=>'client.'], function(){
     Route::get('/', ['as'=>'index', 'uses' => 'Client\ClientController@index']);
     Route::get('detail/{id}', ['as'=>'detail', 'uses'=>'Client\DetailController@index']);
-    Route::post('add-cart', ['as'=>'addCart', 'uses'=>'Client\CartController@save_cart']);
+    Route::post('add-cart', ['as'=>'addCart', 'uses'=>'Client\CartController@add_cart']);
     Route::get('cart', ['as'=>'cart', 'uses'=>'Client\CartController@cart']);
+    Route::post('save-cart', ['as'=>'savecart', 'uses'=>'Client\CartController@save_cart']);
 });

@@ -9,7 +9,7 @@
 			<div class="row">
 				<div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 main-content-area">
 					<div class="wrap-product-detail">
-						<form action="{{url('client/cart')}}" method="POST" enctype="multipart/form-data">
+						<form >
 						{{-- @method('GET') --}}
 						@csrf
 						{{-- @foreach ($description as $key) --}}
@@ -45,18 +45,17 @@
 							<div class="quantity">
 								<span>Quantity:</span>
 								<div class="quantity-input">
-									<input type="text" name="product-quatity" value="1" data-max="{{$product->amount}}" pattern="[0-9]*" >
+									<input type="text" name="product-quatity" class="cart_product_quantity_{{$product->id}}" value="1" data-max="{{$product->amount}}" pattern="[0-9]*" >
 										<a class="btn btn-reduce" href="#"></a>
 										<a class="btn btn-increase" href="#"></a>
 								</div>
 							</div>
 							<div class="wrap-butons">
-								<form action="{{route('client.addCart')}}">
-									@csrf
-									@method('get')
-									<input type="hidden" name="product_id" value="{{$product->id}}">
-									<button type="submit" class="btn add-to-cart">Add to Cart</button>
-								</form>
+									<input type="hidden" class="cart_product_id_{{$product->id}}" value="{{$product->id}}">
+									<input type="hidden" class="cart_product_name_{{$product->id}}" value="{{$product->name}}">
+									<input type="hidden" class="cart_product_image_{{$product->id}}" value="{{$product->image}}">
+									<input type="hidden" class="cart_product_price_{{$product->id}}" value="{{$product->price}}">
+									<button type="button" class="btn add-to-cart" data-id_product="{{$product->id}}" name="add-to-cart">Add to Cart</button>
 								<div class="wrap-btn">
 									<a href="#" class="btn btn-compare">Add Compare</a>
 									<a href="#" class="btn btn-wishlist">Add Wishlist</a>
@@ -410,3 +409,4 @@
 			</div><!--end row-->
 		</div><!--end container-->
 </main>
+

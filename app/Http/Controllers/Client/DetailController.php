@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 
 class DetailController extends Controller
 {
-    public function index($id){
+    public function index($id)
+    {
         $product = Product::find($id);
         $description = ProductSpecification::all();
         $specification = Specification::all();
