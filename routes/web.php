@@ -58,11 +58,12 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-Route::group(['prefix' => 'client', 'middleware' => 'auth', 'as' => 'client.'], function () {
+Route::group(['prefix' => 'client', 'as' => 'client.'], function () {
     Route::get('/', ['as' => 'index', 'uses' => 'Client\ClientController@index']);
     Route::get('detail/{id}', ['as' => 'detail', 'uses' => 'Client\DetailController@index']);
     Route::post('add-cart', ['as' => 'addCart', 'uses' => 'Client\CartController@add_cart']);
-    Route::get('cart', ['as' => 'cart', 'uses' => 'Client\CartController@cart']);
-    Route::post('save-cart', ['as' => 'savecart', 'uses' => 'Client\CartController@save_cart']);
-    Route::get('delete-cart/{id}', ['as' => 'deletecart', 'uses' => 'CartController@delete_cart']);
+    Route::group( ['middleware' => ['auth']], function(){
+        Route::get('cart', ['as' => 'cart', 'uses' => 'Client\CartController@cart']);
+        Route::get('delete-cart/{session_id}', ['as' => 'deletecart', 'uses' => 'CartController@delete_cart']);
+    });
 });
