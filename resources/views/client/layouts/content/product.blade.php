@@ -2,7 +2,7 @@
     <h3 class="title-box">Product Categories</h3>
     <div class="wrap-top-banner">
         <a href="#" class="link-banner banner-effect-2">
-            <figure><img src="{{ asset('assets/images/fashion-accesories-bann')}}er.jpg" width="1170" height="240" alt=""></figure>
+            <figure><img src="{{ asset('assets/images/516946')}}.jpg" width="1170" height="240" alt=""></figure>
         </a>
     </div>
     <div class="wrap-products">
