@@ -16,21 +16,22 @@
     @include('client.layouts.footer')
     @include('client.layouts.script')
     @stack('scripts')
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(".form-infor").hide();
         $(document).ready(function() {
-            $('.check-out').click(function(even) {
+            $('.check-out').click(function(event) {
                 event.preventDefault();
                 $('.form-infor').show();
                 $('.main-content-area').hide();
             });
-            $('.return').click(function(even) {
-                even.preventDefault();
+            $('.return').click(function(event) {
+                event.preventDefault();
                 $('.form-infor').hide();
                 $('.main-content-area').show();
             });
-            // $('.delete-cart-item').click(function(even) {
-            //     even.preventDefault();
+            // $('.delete-cart-item').click(function(event) {
+            //     event.preventDefault();
             //     var session_id = $('.session_id').val();
             //     $.ajax({
             //         method: "GET",
@@ -44,6 +45,48 @@
             //     });
             // });
         })
+        $(document).on('submit', '#form-booking', function(event) {
+            var form_booking = $(this);
+            const username = $('#username').val();
+            const userphone = $('#userphone').val();
+            const useraddress = $('#useraddress').val();
+            event.preventDefault();
+            $.ajaxSetup({
+                header: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                method: 'POST',
+                url: "/client/order-detail",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    username: username,
+                    userphone: userphone,
+                    useraddress: useraddress,
+                },
+                type: 'json', 
+                success: function(data) {
+                   
+                    if (data.status == 405) {
+                        let _html = '';
+                        $.each(data['data'], function(key, value) {
+                            _html += '<li>' + value + '</li>'
+                        });
+                        // console.log(data);
+                        swal.fire({
+                            title: data.errors,
+                            html: _html,
+                            type: 'error'
+                        });
+                    } else {
+                        // console.log(data);
+                        form_booking.parent().html(data);
+                        form_booking.replaceWith(data.url);
+                    }
+                }
+            });
+        });
     </script>
 </body>
 
