@@ -47,11 +47,20 @@ Route::group(['middleware' => ['auth']], function () {
                     Route::put('update-product/{id}', ['name' => 'update', 'uses' => 'Admin\ProductController@update'])->name('update');
                     Route::get('delete-product/{id}', ['name' => 'delete', 'uses' => 'Admin\ProductController@delete'])->name('delete');
                 });
-                Route::group(['prefix' => 'user', 'middleware' => ['auth'], 'as' => 'user.'], function () {
-                    Route::get('', ['name' => 'list', 'uses' => 'User\UserController@list'])->name('list');
-                    Route::get('edit-user/{id}', ['name' => 'edit', 'uses' => 'User\UserController@edit'])->name('edit');
-                    Route::put('update-user/{id}', ['name' => 'update', 'uses' => 'User\UserController@update'])->name('update');
-                    Route::get('delete-user/{id}', ['name' => 'delete', 'uses' => 'User\UserController@delete'])->name('delete');
+
+                Route::group(['prefix'=>'category', 'as'=>'category.'], function(){
+                    Route::get('', ['name'=>'list', 'uses'=>'Admin\CategoryController@list'])->name('list');
+                    Route::get('add-category', ['name'=>'add', 'uses'=>'Admin\CategoryController@add'])->name('add');
+                    Route::post('insert-category', ['name'=>'insert', 'uses'=>'Admin\CategoryController@insert'])->name('insert');
+                    Route::get('edit-category/{id}', ['name'=>'edit', 'uses'=>'Admin\CategoryController@edit'])->name('edit');
+                    Route::put('update-category/{id}', ['name'=>'update', 'uses'=>'Admin\CategoryController@update'])->name('update');
+                    Route::get('delete-category/{id}', ['name'=>'delete', 'uses'=>'Admin\CategoryController@delete'])->name('delete');
+                });
+                Route::group(['prefix'=>'user', 'middleware'=>['auth'],'as'=>'user.'], function () {
+                    Route::get('', ['name'=>'list', 'uses'=>'User\UserController@list'])->name('list');
+                    Route::get('edit-user/{id}', ['name'=>'edit', 'uses'=>'User\UserController@edit'])->name('edit');
+                    Route::put('update-user/{id}', ['name'=>'update', 'uses'=>'User\UserController@update'])->name('update');
+                    Route::get('delete-user/{id}', ['name'=>'delete', 'uses'=>'User\UserController@delete'])->name('delete');
                 });
             });
         });
