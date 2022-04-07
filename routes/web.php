@@ -75,6 +75,7 @@ Route::group(['prefix' => 'client', 'as' => 'client.'], function () {
         Route::get('cart', ['as' => 'cart', 'uses' => 'Client\CartController@cart']);
         Route::get('delete-cart/{session_id}', ['as' => 'deletecart', 'uses' => 'CartController@delete_cart']);
         Route::post('order-detail', ['as'=>'orderdetail', 'uses'=>'Client\CartController@order_detail']);
-        Route::get('vnpay-payment', ['as'=>'vnpaypayment', 'uses'=>'Client\CartController@payment']);
+        Route::post('payment', ['as'=>'payment', 'uses'=>'Client\CartController@payment']);
+        Route::get('vnpay-rerturn', ['as'=>'vnpayreturn', 'user'=>'Client\CartController@vnpayReturn']);
     });
 });

@@ -27,6 +27,10 @@
                             <label for="">Address</label>
                             <td>{{ $posts['useraddress'] }}</td>
                         </p>
+                        <p class="row-in-form">
+                            <label for="">Email</label>
+                            <td>{{ $posts['useremail'] }}</td>
+                        </p>
                     </form>
                     @php
                         $total = 0;
@@ -67,22 +71,22 @@
                         <h4 class="title-box">Payment Method</h4>
                         <div class="choose-payment-methods">
                             <label class="payment-method">
-                                <input name="payment-method" id="payment-method-bank" value="bank" type="radio">
+                                <input name="paymentMethod" id="payment-method-bank" value="bank" type="radio">
                                 <span>VN Pay</span>
                             </label>
                             <label class="payment-method">
-                                <input name="payment-method" id="payment-method-visa" value="visa" type="radio">
+                                <input name="paymentMethod" id="payment-method-visa" value="visa" type="radio">
                                 <span>visa</span>
                             </label>
                             <label class="payment-method">
-                                <input name="payment-method" id="payment-method-paypal" value="paypal" type="radio">
+                                <input name="paymentMethod" id="payment-method-paypal" value="paypal" type="radio">
                                 <span>Paypal</span>
                             </label>
                         </div>
-                        <p class="summary-info grand-total"><span>Grand Total</span> <span
-                                class="grand-total-price">{{ number_format($total, 0, ',', '.') }} VND</span></p>
+                        <p class="summary-info grand-total" ><span>Grand Total</span> <span
+                                class="grand-total-price" name="total" id="total">{{ number_format($total, 0, ',', '.') }} VND</span></p>
                         <a href="{{route('client.cart')}}" class="btn btn-back">Back</a>
-                        <a href="{{route('client.vnpaypayment')}}" class="btn btn-medium">Place order now</a>
+                        <a class="btn btn-medium" name="payUrl" id="pay">Place order now</a>
                     </div>
                     <div class="summary-item shipping-method">
                         <h4 class="title-box f-title">Shipping method</h4>

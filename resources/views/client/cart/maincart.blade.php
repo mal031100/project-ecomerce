@@ -39,10 +39,10 @@
                                     </a>
                                 </div>
                                 <div class="price-field produtc-price">
-                                    <p class="price">{{ number_format($cart['price'], 0, ',', '.') }} VND</p>
+                                    <p class="price" id="price">{{ number_format($cart['price'], 0, ',', '.') }} VND</p>
                                 </div>
                                 <div class="quantity">
-                                    <p class="quantity-input">
+                                    <p class="quantity-input" id="qty">
                                         {{ $cart['quantity'] }}
                                     </p>
                                 </div>
@@ -73,7 +73,7 @@
                                 class="index">Free
                                 Shipping</b></p>
                         <p class="summary-info total-info"><span class="title">Total</span><b
-                                class="index subtotal">{{ number_format($total, 0, ',', '.') }} VND</b></p>
+                                class="index subtotal" id="subtotal" name="total">{{ number_format($total, 0, ',', '.') }} VND</b></p>
                     </div>
                     <div class="checkout-info">
                         <a class="btn btn-checkout check-out">Check out</a>
@@ -96,6 +96,11 @@
                         <label for="exampleInputAddress1">Address</label>
                         <input type="text" name="useraddress" class="form-control" id="useraddress"
                             placeholder="Enter your address">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" name="useremail" class="form-control" id="useremail"
+                            placeholder="Enter your email">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPhone1">Phone number</label>
