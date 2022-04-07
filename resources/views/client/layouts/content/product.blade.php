@@ -20,8 +20,8 @@
                         @foreach ($tivi as $item)
                         <div class="product product-style-2 equal-elem ">
                            <div class="product-thumnail">
-                            <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
-                                <figure><img src="{{ asset('assets1/upload/product/'.$item->image)}}" width="800" height="800" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                            <a href="{{asset('client/detail/'.$item->id)}}" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                                <figure><img src="{{ asset('assets1/upload/product/'.$item->image)}}" width="250" height="250" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
                             </a>
                             <div class="group-flash">
                                 <span class="flash-item new-label">new</span>
@@ -44,7 +44,7 @@
                         @foreach ($tulanh as $item)
                         <div class="product product-style-2 equal-elem ">
                             <div class="product-thumnail">
-                                <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                                <a href="{{asset('client/detail/'.$item->id)}}" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
                                     <figure><img src="{{ asset('assets1/upload/product/'.$item->image)}}" width="800" height="800" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
                                 </a>
                                 <div class="group-flash">
@@ -68,7 +68,7 @@
                         @foreach ($maygiat as $item)
                         <div class="product product-style-2 equal-elem ">
                             <div class="product-thumnail">
-                                <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                                <a href="{{asset('client/detail/'.$item->id)}}" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
                                     <figure><img src="{{ asset('assets1/upload/product/'.$item->image)}}" width="800" height="800" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
                                 </a>
                                 <div class="group-flash">
@@ -86,8 +86,11 @@
                         @endforeach
                     </div>
                 </div>
+<<<<<<< HEAD
 
               
+=======
+>>>>>>> c5effaa (add view)
             </div>
         </div>
     </div>

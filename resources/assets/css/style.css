@@ -3990,7 +3990,7 @@ article.single-post blockquote p:last-child::after{
     padding-left: 20px;
 }
 .wrap-iten-in-cart .products-cart .product-name a{
-    font-size: 14px;
+    font-size: 18px;
     line-height: 20px;
     font-weight: 600;
     color: #333333;
@@ -4004,9 +4004,11 @@ article.single-post blockquote p:last-child::after{
 }
 .wrap-iten-in-cart .products-cart .quantity .quantity-input{
     display: inline-block;
-    border: 1px solid #e6e6e6;
+    border: 1px solid #fff7f7;
     width: 100%;
     max-width: 157px;
+    text-align: center;
+    font-size: 16px;
 }
 .wrap-iten-in-cart .products-cart .quantity .quantity-input input[type=number],
 .wrap-iten-in-cart .products-cart .quantity .quantity-input input[type=text]{
@@ -4147,7 +4149,7 @@ article.single-post blockquote p:last-child::after{
     border-top: 1px solid #e6e6e6;
     margin-top: 20px;
     padding-top: 17px;
-    font-size: 15px;
+    font-size: 18px;
 }
 .order-summary .summary-info.total-info .title{
     color: #333333;
@@ -5026,7 +5028,7 @@ table.shop_attributes tbody{
     display: inline-block;
 }
 .payment-method .choose-payment-methods{
-    border-top: 1px solid #e6e6e6;
+    /* border-top: 1px solid #e6e6e6; */
     margin-top: 13px;
     padding-top: 12px;
 }
