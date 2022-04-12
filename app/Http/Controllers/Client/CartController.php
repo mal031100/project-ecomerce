@@ -136,7 +136,8 @@ class CartController extends Controller
         $infor_phone = $info_data['userphone'];
         $infor_address = $info_data['useraddress'];
         $infor_paymentMethod = $info_data['paymentMethod'];
-        $infor_paymentTotal = 9999000;
+        $infor_products = $info_data['cartId'];
+        $infor_paymentTotal = $info_data['total'];
         // dd($info_data);
         // if ($infor_paymentMethod == "vnpay") {
         error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
@@ -200,6 +201,7 @@ class CartController extends Controller
             "InforAddress" => $infor_address,
             "InforPaymentMethod" => $infor_paymentMethod,
             "InforPaymentTotal" => $infor_paymentTotal,
+            "InforProduct" => $infor_products,
             "orderId" => $vnp_TxnRef,
         ];
         session()->put($returnData);
@@ -211,7 +213,6 @@ class CartController extends Controller
     public function vnpayReturn(Request $request)
     {
         $infor = $request->session()->all();
-        dd($infor);
         $check_order_code = DB::table('orders')->where('code_order', $infor['orderId'])->exists();
 
         if ($check_order_code == true) {
@@ -228,20 +229,23 @@ class CartController extends Controller
                         ->select('id', 'name', 'price')
                         ->get();
                     $products_info = [];
-                    // foreach ($infor['InforProduct'] as $info) {
-                    //     $arr = [
-                    //         'id' => $info['id'],
-                    //         'name' => null,
-                    //         'price' => 0,
-                    //         'value' => $info['value']
-                    //     ];
+                    foreach ($infor['InforProduct'] as $info) {
+                        $arr = [
+                            'id' => $info['id'],
+                            'name' => null,
+                            'price' => 0,
+                            'value' => $info['qty']
+                        ];
                         foreach ($name_products as $item) {
-                            if ($item->id == $item->id) {
+                            if ($arr['id'] == $item->id) {
                                 $arr['name'] = $item->name;
                                 $arr['price'] = $item->price;
                             }
                         }
                         $products_info[] = $arr;
+                    }
+                    // foreach($infor['InforProduct'] as $info){
+
                     // }
 
                     $orders_id = DB::table('orders')
@@ -264,7 +268,7 @@ class CartController extends Controller
                                 [
                                     'order_id' => $orders_id,
                                     'product_id' => $item['id'],
-                                    'quantity' => $item['value'],
+                                    'quantity' => $item['qty'],
                                     'created_at' => Carbon::now(),
                                 ]
                             );

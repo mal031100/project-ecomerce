@@ -6,7 +6,7 @@
         @foreach ($product as $item)
         <div class="product product-style-2 equal-elem ">
             <div class="product-thumnail">
-                <a href="detail.html" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
+                <a href="{{asset('client/detail/'.$item->id)}}" title="T-Shirt Raw Hem Organic Boro Constrast Denim">
                     <figure><img src="{{ asset('assets1/upload/product/'.$item->image)}}" width="800" height="800" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
                 </a>
                 <div class="group-flash">
@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="product-info">
-                <a href="#" class="product-name"><span>{{$item->name}}</span></a>
+                <a href="{{asset('client/detail/'.$item->id)}}" class="product-name"><span>{{$item->name}}</span></a>
                 <div class="wrap-price"><span class="product-price">{{number_format($item->price,0,',','.')}} VNĐ</span></div>
             </div>
         </div>

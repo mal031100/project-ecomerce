@@ -3,9 +3,9 @@
         <div class="container">
 
             <div class="wrap-breadcrumb">
-                @if (session('message'))
+                {{-- @if (session('message'))
                     <div>{{ session('message') }}</div>
-                @endif
+                @endif --}}
                 <ul>
                     <li class="item-link"><a href="{{ route('client.index') }}" class="link">home</a>
                     </li>
@@ -27,7 +27,7 @@
                         <div class="products-cart">
                             <li class="pr-cart-item">
                                 <div>
-                                    {{-- <input type="hidden" class="session_id" value="{{ $cart['session_id'] }}"> --}}
+                                    <input type="hidden" id="cartId" class="session_id" value="{{ $cart['id'] }}">
                                 </div>
                                 <div class="product-image">
                                     <figure><img src="{{ asset('assets1/upload/product/' . $cart['image']) }}" alt="">
@@ -35,14 +35,14 @@
                                 </div>
                                 <div class="product-name">
                                     <a class="link-to-product" href="{{ url('client/detail/' . $cart['id']) }}">
-                                        {{ $cart['name'] . '-' . $cart['session_id'] }}
+                                        {{ $cart['name'] }}
                                     </a>
                                 </div>
                                 <div class="price-field produtc-price">
                                     <p class="price" id="price">{{ number_format($cart['price'], 0, ',', '.') }} VND</p>
                                 </div>
                                 <div class="quantity">
-                                    <p class="quantity-input" id="qty">
+                                    <p class="quantity-input qty" id="qty">
                                         {{ $cart['quantity'] }}
                                     </p>
                                 </div>
@@ -106,6 +106,7 @@
                         <label for="exampleInputPhone1">Phone number</label>
                         <input type="tel" name="userphone" class="form-control" id="userphone"
                             placeholder="Enter your phone number" pattern="[0-9]*">
+                        <input type="hidden" name="total" class="form-control0" id="total" value="{{$total}}">
                     </div>
                     <div class="form-group">
                         <a class="btn btn-warning return">Return</a>

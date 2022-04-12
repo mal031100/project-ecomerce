@@ -58,9 +58,9 @@
 										</a>
 									</div>
 									<div class="product-info">
-										<a href="#" class="product-name"><span>{{$item->name}}</span></a>
+										<a href="{{asset('client/detail/'.$item->id)}}" class="product-name"><span>{{$item->name}}</span></a>
 										<div class="wrap-price"><span class="product-price">{{number_format($item->price,0,',','.')}} VNĐ</span></div>
-										<a href="#" class="btn add-to-cart">Add To Cart</a>
+										<a href="{{asset('client/detail/'.$item->id)}}" class="btn add-to-cart">Add To Cart</a>
 									</div>
 								</div>
 							</li>

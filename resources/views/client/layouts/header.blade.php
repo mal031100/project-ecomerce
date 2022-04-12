@@ -31,8 +31,9 @@
 								<li class="menu-item" ><a title="Register or Login" href="{{route('formregister')}}">Register</a></li>
 								@endif
 								<li class="menu-item lang-menu menu-item-has-children parent">
-									<a title="English" href="#"><span class="img label-before"><img src="{{asset('assets/images/lang-en.png')}}" alt="lang-en"></span>English<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+									<a title="Vietnam" href="#"><span class="img label-before"><img src="{{asset('assets/images/lang-vie.png')}}" alt="lang-vie" width="20px" height="15px"></span>VietNam<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 									<ul class="submenu lang" >
+										<li class="menu-item" ><a title="english" href="#"><span class="img label-before"><img src="{{asset('assets/images/lang-en.png')}}" alt="lang-en"></span>English</a></li>
 										<li class="menu-item" ><a title="hungary" href="#"><span class="img label-before"><img src="{{asset('assets/images/lang-hun.png')}}" alt="lang-hun"></span>Hungary</a></li>
 										<li class="menu-item" ><a title="german" href="#"><span class="img label-before"><img src="{{asset('assets/images/lang-ger.png')}}" alt="lang-ger" ></span>German</a></li>
 										<li class="menu-item" ><a title="french" href="#"><span class="img label-before"><img src="{{asset('assets/images/lang-fra.png')}}" alt="lang-fre"></span>French</a></li>
@@ -40,7 +41,7 @@
 									</ul>
 								</li>
 								<li class="menu-item menu-item-has-children parent" >
-									<a title="Dollar (USD)" href="#">Dollar (USD)<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+									<a title="VietNam (VND)" href="#">VietNam (VND)<i class="fa fa-angle-down" aria-hidden="true"></i></a>
 									<ul class="submenu curency" >
 										<li class="menu-item" >
 											<a title="Pound (GBP)" href="#">Pound (GBP)</a>
@@ -112,7 +113,7 @@
 								<a href="{{route('client.cart')}}" class="link-direction">
 									<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 									<div class="left-info">
-										<span class="index">4 items</span>
+										<span class="index"></span>
 										<span class="title">CART</span>
 									</div>
 								</a>
@@ -149,7 +150,7 @@
 									<a href="{{route('client.index')}}" class="link-term mercado-item-title"><i class="fa fa-home" aria-hidden="true"></i></a>
 								</li>
 								<li class="menu-item">
-									<a href="about-us.html" class="link-term mercado-item-title">About Us</a>
+									<a href="#" class="link-term mercado-item-title">About Us</a>
 								</li>
 								<li class="menu-item">
 									<a href="{{route('client.shop')}}" class="link-term mercado-item-title">Shop</a>
@@ -158,10 +159,7 @@
 									<a href="{{route('client.cart')}}" class="link-term mercado-item-title">Cart</a>
 								</li>
 								<li class="menu-item">
-									<a href="checkout.html" class="link-term mercado-item-title">Checkout</a>
-								</li>
-								<li class="menu-item">
-									<a href="contact-us.html" class="link-term mercado-item-title">Contact Us</a>
+									<a href="#" class="link-term mercado-item-title">Contact Us</a>
 								</li>																	
 							</ul>
 						</div>

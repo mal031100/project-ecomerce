@@ -21,24 +21,16 @@
         $(".form-infor").hide();
         var totalActual = 0;
         var prices = 0;
-        var array = [
-            
-        ];
+        var array = [];
+        const total = $('#total').val();
+        const cart_id = $('#cartId').val();
+        console.log(total);
         $(document).ready(function() {
             $('.check-out').click(function(event) {
                 event.preventDefault();
                 $('.form-infor').show();
                 $('.main-content-area').hide();
             });
-            const total = 0
-            if (array.lenght > 0) {
-                array.map(item => item.total).reduce((p, c) => p + c, total);
-            }
-            console.log(total);
-
-            totalActual += total;
-            prices += total
-            console.log(total);
             $('.return').click(function(event) {
                 event.preventDefault();
                 $('.form-infor').hide();
@@ -93,11 +85,22 @@
                                         'content')
                                 }
                             });
+                            // const total = 0
+                            // if (array.lenght > 0) {
+                            //     array.map(item => item.total).reduce((p, c) => p + c, total);
+                            // }
+                            // const total = array.lenght > 0 ? array.map(item => item.total).reduce((p, c) => p + c, total) : 0;
+                            // console.log(total);
+                            // prices += totalconsole.log(total);
+                            // var total = $('#toatal').val();
+                            console.log(total);
+                            // var prices = total.slice(56,66)
+                            // prices += total;
+                            // console.log(prices);
                             $('#pay').click(function(event) {
                                 console.log('ok');
                                 var paymentMethod = $(
                                     'input[name=paymentMethod]:checked').val();
-                                console.log('hihi');
                                 event.preventDefault();
                                 console.log('haha');
                                 $.ajax({
@@ -110,7 +113,8 @@
                                         userphone: userphone,
                                         useraddress: useraddress,
                                         paymentMethod: paymentMethod,
-                                        // total: total,
+                                        cartId: cart_id,
+                                        total: total,
                                     },
                                     type: 'json',
                                     success: function(data) {

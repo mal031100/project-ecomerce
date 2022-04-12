@@ -40,30 +40,6 @@
                             $subtotal = $cart['price'] * $cart['quantity'];
                             $total += $subtotal;
                         @endphp
-                        {{-- <div class="products-cart">
-                            <li class="pr-cart-item">
-                                <div>
-                                </div>
-                                <div class="product-image">
-                                    <figure><img src="{{ asset('assets1/upload/product/' . $cart['image']) }}" alt="">
-                                    </figure>
-                                </div>
-                                <div class="product-name">
-                                    <a class="link-to-product" href="{{ url('client/detail/' . $cart['id']) }}">
-                                        {{ $cart['name'] . '-' . $cart['session_id'] }}
-                                    </a>
-                                </div>
-                                <div class="quantity">
-                                    <p class="quantity-input">
-                                        {{ $cart['quantity'] }}
-                                    </p>
-                                </div>
-                                <div class="price-field sub-total">
-                                    <p class="price">{{ number_format($subtotal, 0, ',', '.') }} VND</p>
-                                </div>
-                                
-                            </li>
-                        </div> --}}
                     @endforeach
                 </div>
                 <div class="summary summary-checkout">
@@ -84,7 +60,7 @@
                             </label>
                         </div>
                         <p class="summary-info grand-total" ><span>Grand Total</span> <span
-                                class="grand-total-price" name="total" id="total">{{ number_format($total, 0, ',', '.') }} VND</span></p>
+                                class="grand-total-price" name="total" id="total">{{ number_format($total, 0, ',', '.') }}</span><span> VND</span></p>
                         <a href="{{route('client.cart')}}" class="btn btn-back">Back</a>
                         <a class="btn btn-medium" name="payUrl" id="pay">Place order now</a>
                     </div>
