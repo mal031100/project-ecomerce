@@ -3,14 +3,21 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Payment\PaymentRequest;
+use App\Models\Product;
 use App\Models\User;
+use Exception;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session as FacadesSession;
+use SebastianBergmann\Environment\Console;
 
 session_start();
 class CartController extends Controller
@@ -80,12 +87,15 @@ class CartController extends Controller
             [
                 'username' => 'required|max: 50|min:10',
                 'useraddress' => 'required|min: 11',
+                'useremail' => 'required|email|min: 11',
                 'userphone' => 'required|min: 10|max: 15',
             ],
             [
                 'username.required' => 'No name to blank',
                 'username.max' => 'Can only enter up to 50 characters',
                 'useraddress.required' => 'No address to blank',
+                'useremail.required' => 'No email to blank',
+                'useremail.email' => 'Please enter correct email format',
                 'userphone.required' => 'No phone-number to blank',
                 'userphone.min' => 'Phone number cannot be less than 10 characters',
                 'userphone.max' => 'Phone number cannot be more than 15 characters',
@@ -115,46 +125,37 @@ class CartController extends Controller
         }
     }
 
-    public function payment()
-    {
-        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "https://localhost:82/client/cart";
-        $vnp_TmnCode = "YSU8GSYA"; //Mã website tại VNPAY 
-        $vnp_HashSecret = "EXRZPWWGPMHGMICZSYCCLRGBXPSYXRGG"; //Chuỗi bí mật
+    public $returnData = [];
 
-        $vnp_TxnRef = $_POST['order_id']; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = $_POST['order_desc'];
-        $vnp_OrderType = $_POST['order_type'];
-        $vnp_Amount = $_POST['amount'] * 100;
-        $vnp_Locale = $_POST['language'];
-        $vnp_BankCode = $_POST['bank_code'];
+    public function payment(PaymentRequest $request)
+    {
+        $code_id = time() . "";
+        $info_data = $request->all();
+        $infor_name = $info_data['username'];
+        $infor_email = $info_data['useremail'];
+        $infor_phone = $info_data['userphone'];
+        $infor_address = $info_data['useraddress'];
+        $infor_paymentMethod = $info_data['paymentMethod'];
+        $infor_products = $info_data['cartId'];
+        $infor_paymentTotal = $info_data['total'];
+        // dd($info_data);
+        // if ($infor_paymentMethod == "vnpay") {
+        error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        // dd($infor_paymentTotal);
+        $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+
+        $vnp_TxnRef = $code_id;
+        $vnp_OrderInfo = 'Payment orders';
+        $vnp_OrderType = 'Billpayment';
+        $vnp_Amount = $infor_paymentTotal * 100;
+        $vnp_Locale = 'VND';
+        $vnp_BankCode = 'NCB';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        //Add Params of 2.0.1 Version
-        $vnp_ExpireDate = $_POST['txtexpire'];
-        //Billing
-        $vnp_Bill_Mobile = $_POST['txt_billing_mobile'];
-        $vnp_Bill_Email = $_POST['txt_billing_email'];
-        $fullName = trim($_POST['txt_billing_fullname']);
-        if (isset($fullName) && trim($fullName) != '') {
-            $name = explode(' ', $fullName);
-            $vnp_Bill_FirstName = array_shift($name);
-            $vnp_Bill_LastName = array_pop($name);
-        }
-        $vnp_Bill_Address = $_POST['txt_inv_addr1'];
-        $vnp_Bill_City = $_POST['txt_bill_city'];
-        $vnp_Bill_Country = $_POST['txt_bill_country'];
-        $vnp_Bill_State = $_POST['txt_bill_state'];
-        // Invoice
-        $vnp_Inv_Phone = $_POST['txt_inv_mobile'];
-        $vnp_Inv_Email = $_POST['txt_inv_email'];
-        $vnp_Inv_Customer = $_POST['txt_inv_customer'];
-        $vnp_Inv_Address = $_POST['txt_inv_addr1'];
-        $vnp_Inv_Company = $_POST['txt_inv_company'];
-        $vnp_Inv_Taxcode = $_POST['txt_inv_taxcode'];
-        $vnp_Inv_Type = $_POST['cbo_inv_type'];
+
         $inputData = array(
             "vnp_Version" => "2.1.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
+            "vnp_TmnCode" => config('app.vnp_tmn_code'),
             "vnp_Amount" => $vnp_Amount,
             "vnp_Command" => "pay",
             "vnp_CreateDate" => date('YmdHis'),
@@ -163,33 +164,13 @@ class CartController extends Controller
             "vnp_Locale" => $vnp_Locale,
             "vnp_OrderInfo" => $vnp_OrderInfo,
             "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => $vnp_Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef,
-            "vnp_ExpireDate" => $vnp_ExpireDate,
-            "vnp_Bill_Mobile" => $vnp_Bill_Mobile,
-            "vnp_Bill_Email" => $vnp_Bill_Email,
-            "vnp_Bill_FirstName" => $vnp_Bill_FirstName,
-            "vnp_Bill_LastName" => $vnp_Bill_LastName,
-            "vnp_Bill_Address" => $vnp_Bill_Address,
-            "vnp_Bill_City" => $vnp_Bill_City,
-            "vnp_Bill_Country" => $vnp_Bill_Country,
-            "vnp_Inv_Phone" => $vnp_Inv_Phone,
-            "vnp_Inv_Email" => $vnp_Inv_Email,
-            "vnp_Inv_Customer" => $vnp_Inv_Customer,
-            "vnp_Inv_Address" => $vnp_Inv_Address,
-            "vnp_Inv_Company" => $vnp_Inv_Company,
-            "vnp_Inv_Taxcode" => $vnp_Inv_Taxcode,
-            "vnp_Inv_Type" => $vnp_Inv_Type
+            "vnp_ReturnUrl" => route('client.vnpayreturn'),
+            "vnp_TxnRef" => $vnp_TxnRef
         );
-
+        // dd($inputData);
         if (isset($vnp_BankCode) && $vnp_BankCode != "") {
             $inputData['vnp_BankCode'] = $vnp_BankCode;
         }
-        if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
-            $inputData['vnp_Bill_State'] = $vnp_Bill_State;
-        }
-
-        //var_dump($inputData);
         ksort($inputData);
         $query = "";
         $i = 0;
@@ -204,19 +185,139 @@ class CartController extends Controller
             $query .= urlencode($key) . "=" . urlencode($value) . '&';
         }
 
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
+        $vnp_Url = config('app.vnp_url') . "?" . $query;
+
+        if (config('app.vnp_has')) {
+            $vnpSecureHash =   hash_hmac('sha512', $hashdata, config('app.vnp_has'));
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
-        $returnData = array(
-            'code' => '00', 'message' => 'success', 'data' => $vnp_Url
-        );
-        if (isset($_POST['redirect'])) {
-            header('Location: ' . $vnp_Url);
-            die();
+        $returnData = [
+            'code' => '00',
+            'message' => 'success',
+            'data' => $vnp_Url,
+            "InforName" => $infor_name,
+            "InforEmail" => $infor_email,
+            "InforPhone" => $infor_phone,
+            "InforAddress" => $infor_address,
+            "InforPaymentMethod" => $infor_paymentMethod,
+            "InforPaymentTotal" => $infor_paymentTotal,
+            "InforProduct" => $infor_products,
+            "orderId" => $vnp_TxnRef,
+        ];
+        session()->put($returnData);
+        return response()->json($returnData);
+        // }
+
+    }
+
+    public function vnpayReturn(Request $request)
+    {
+        $infor = $request->session()->all();
+        $check_order_code = DB::table('orders')->where('code_order', $infor['orderId'])->exists();
+
+        if ($check_order_code == true) {
+            $products = Product::all();
+            return view('client.cart.cart', compact('products'));
         } else {
-            echo json_encode($returnData);
+            if ($request->vnp_ResponseCode === '00') {
+                try {
+                    DB::beginTransaction();
+                    $vnpayData = $request->all();
+                    $infor = $request->session()->all();
+
+                    $name_products = DB::table('products')
+                        ->select('id', 'name', 'price')
+                        ->get();
+                    $products_info = [];
+                    foreach ($infor['InforProduct'] as $info) {
+                        $arr = [
+                            'id' => $info['id'],
+                            'name' => null,
+                            'price' => 0,
+                            'value' => $info['qty']
+                        ];
+                        foreach ($name_products as $item) {
+                            if ($arr['id'] == $item->id) {
+                                $arr['name'] = $item->name;
+                                $arr['price'] = $item->price;
+                            }
+                        }
+                        $products_info[] = $arr;
+                    }
+                    // foreach($infor['InforProduct'] as $info){
+
+                    // }
+
+                    $orders_id = DB::table('orders')
+                        ->insertGetId(
+                            [
+                                'code_order' => $infor['orderId'],
+                                'full_name' => $infor['InforName'],
+                                'address' => $infor['InforAdress'],
+                                'email' => $infor['InforEmail'],
+                                'phone' => $infor['InforPhone'],
+                                'total' => $infor['InforTotal'],
+                                // 'actual_total' => $infor['InforPaymentTotal'],
+                                // 'payment_method' => $infor['InforPaymentMethod'],
+                                'created_at' => Carbon::now(),
+                            ]
+                        );
+                    foreach ($infor['InforProduct'] as $item) {
+                        DB::table('order_detail')
+                            ->insert(
+                                [
+                                    'order_id' => $orders_id,
+                                    'product_id' => $item['id'],
+                                    'quantity' => $item['qty'],
+                                    'created_at' => Carbon::now(),
+                                ]
+                            );
+                    }
+
+                    DB::commit();
+                    $to_name = $infor['InforName'];
+                    $to_email = $infor['InforEmail'];
+
+                    Mail::send(
+                        'user.mail.form_email',
+                        compact('infor', 'products_info'),
+                        function ($message) use ($to_name, $to_email) {
+                            $message->to($to_email)->subject('Product information');
+                            $message->from($to_email, $to_name);
+                        }
+                    );
+                    session()->flush();
+                    return view('client.payment.vnpay_return');
+                } catch (Exception $exception) {
+                    $request->session()->flash('message', 'ERROR! AN ERROR OCCURRED. PLEASE TRY AGAIN LATER!');
+                }
+            } else {
+                $request->session()->flash('status', 'ERROR! AN ERROR OCCURRED. PLEASE TRY AGAIN LATER!');
+                return view('client.master');
+            }
         }
+    }
+
+    public function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt(
+            $ch,
+            CURLOPT_HTTPHEADER,
+            array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data)
+            )
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
     }
 }

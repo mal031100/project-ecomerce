@@ -61,7 +61,7 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <button type="submit" class="btn btn-primary btn-block">Login</button>
+                      <button class="btn btn-primary btn-block">Login</button>
                     </div>
                     <hr>
                     <a href="index.html" class="btn btn-google" >

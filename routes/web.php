@@ -24,8 +24,8 @@ Route::get('/', function () {
 
 Route::get('login', ['name' => 'formlogin', 'uses' => 'Auth\AuthController@formlogin'])->name('formlogin');
 Route::post('login', ['name' => 'login', 'uses' => 'Auth\AuthController@login'])->name('login');
-Route::get('register', ['name' => 'formregister', 'uses' => 'Auth\AuthController@formregister'])->name('formregister');
-Route::post('register', ['name' => 'register', 'uses' => 'Auth\AuthController@register'])->name('register');
+Route::get('register', [ 'uses' => 'Auth\Registercontroller@formregister'])->name('formregister');
+Route::post('register', [ 'uses' => 'Auth\RegisterController@register'])->name('register');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('logout', ['name' => 'logout', 'uses' => 'Auth\AuthController@logout'])->name('logout');
     Route::get('/email/verify', 'VerificationController@show')->name('verification.notice');
@@ -71,10 +71,12 @@ Route::group(['prefix' => 'client', 'as' => 'client.'], function () {
     Route::get('/', ['as' => 'index', 'uses' => 'Client\ClientController@index']);
     Route::get('detail/{id}', ['as' => 'detail', 'uses' => 'Client\DetailController@index']);
     Route::post('add-cart', ['as' => 'addCart', 'uses' => 'Client\CartController@add_cart']);
+    Route::get('shop', ['as'=>'shop', 'uses'=>'Client\ShopController@index']);
     Route::group( ['middleware' => ['auth']], function(){
         Route::get('cart', ['as' => 'cart', 'uses' => 'Client\CartController@cart']);
         Route::get('delete-cart/{session_id}', ['as' => 'deletecart', 'uses' => 'CartController@delete_cart']);
         Route::post('order-detail', ['as'=>'orderdetail', 'uses'=>'Client\CartController@order_detail']);
-        Route::get('vnpay-payment', ['as'=>'vnpaypayment', 'uses'=>'Client\CartController@payment']);
+        Route::post('payment', ['as'=>'payment', 'uses'=>'Client\CartController@payment']);
+        Route::get('vnpay-return', ['as'=>'vnpayreturn', 'user'=>'Client\CartController@vnpayReturn']);
     });
 });

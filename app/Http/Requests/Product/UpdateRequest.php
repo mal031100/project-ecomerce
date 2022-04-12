@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100',
+            'name' => 'required|max:100,unique:products,name,'.request()->id,
             'price' => 'required',
             'sale' => 'required',
             'amount' => 'required',
@@ -34,7 +34,7 @@ class UpdateRequest extends FormRequest
     public function messages()
     {
       return  [            
-        // 'name.unique' => 'Tên sản phẩm đã tồn tại',
+        'name.unique' => 'Tên sản phẩm đã tồn tại',
         'name.max' => 'Tên sản phẩm quá dài',
         'name.required' => 'Không được để trống tên sản phẩm',
         'price.required' => 'Không được để trống giá sản phẩm',

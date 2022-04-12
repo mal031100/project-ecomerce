@@ -3,9 +3,9 @@
         <div class="container">
 
             <div class="wrap-breadcrumb">
-                @if (session('message'))
+                {{-- @if (session('message'))
                     <div>{{ session('message') }}</div>
-                @endif
+                @endif --}}
                 <ul>
                     <li class="item-link"><a href="{{ route('client.index') }}" class="link">home</a>
                     </li>
@@ -27,7 +27,7 @@
                         <div class="products-cart">
                             <li class="pr-cart-item">
                                 <div>
-                                    {{-- <input type="hidden" class="session_id" value="{{ $cart['session_id'] }}"> --}}
+                                    <input type="hidden" id="cartId" class="session_id" value="{{ $cart['id'] }}">
                                 </div>
                                 <div class="product-image">
                                     <figure><img src="{{ asset('assets1/upload/product/' . $cart['image']) }}" alt="">
@@ -35,14 +35,14 @@
                                 </div>
                                 <div class="product-name">
                                     <a class="link-to-product" href="{{ url('client/detail/' . $cart['id']) }}">
-                                        {{ $cart['name'] . '-' . $cart['session_id'] }}
+                                        {{ $cart['name'] }}
                                     </a>
                                 </div>
                                 <div class="price-field produtc-price">
-                                    <p class="price">{{ number_format($cart['price'], 0, ',', '.') }} VND</p>
+                                    <p class="price" id="price">{{ number_format($cart['price'], 0, ',', '.') }} VND</p>
                                 </div>
                                 <div class="quantity">
-                                    <p class="quantity-input">
+                                    <p class="quantity-input qty" id="qty">
                                         {{ $cart['quantity'] }}
                                     </p>
                                 </div>
@@ -73,7 +73,7 @@
                                 class="index">Free
                                 Shipping</b></p>
                         <p class="summary-info total-info"><span class="title">Total</span><b
-                                class="index subtotal">{{ number_format($total, 0, ',', '.') }} VND</b></p>
+                                class="index subtotal" id="subtotal" name="total">{{ number_format($total, 0, ',', '.') }} VND</b></p>
                     </div>
                     <div class="checkout-info">
                         <a class="btn btn-checkout check-out">Check out</a>
@@ -98,9 +98,15 @@
                             placeholder="Enter your address">
                     </div>
                     <div class="form-group">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input type="email" name="useremail" class="form-control" id="useremail"
+                            placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
                         <label for="exampleInputPhone1">Phone number</label>
                         <input type="tel" name="userphone" class="form-control" id="userphone"
                             placeholder="Enter your phone number" pattern="[0-9]*">
+                        <input type="hidden" name="total" class="form-control0" id="total" value="{{$total}}">
                     </div>
                     <div class="form-group">
                         <a class="btn btn-warning return">Return</a>

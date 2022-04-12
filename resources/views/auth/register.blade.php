@@ -29,7 +29,7 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Register</h1>
                   </div>
-                  <form action="{{url('register')}}" method="POST">
+                  <form action="{{url('/register')}}" method="POST">
                     @csrf
                     <div class="form-group">
                       <input type="text" class="form-control" name="name" id="exampleInputFirstName" placeholder="Enter First Name">
@@ -79,6 +79,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                      {{-- <input type="button"  class="btn btn-primary btn-block" value="Register"> --}}
                       <button type="submit" class="btn btn-primary btn-block">Register</button>
                     </div>
                     <hr>
